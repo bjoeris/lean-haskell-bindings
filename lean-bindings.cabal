@@ -49,6 +49,7 @@ library
 
   extra-libraries:
     leanshared
+    pthread
   hs-source-dirs: src
   build-tools: c2hs
   ghc-options: -Wall -Werror
