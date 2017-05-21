@@ -7,18 +7,12 @@ Maintainer  : jhendrix@galois.com, lcasburn@galois.com
 Declarations for importing and exporting modules and accessing Lean paths
 -}
 {-# LANGUAGE ForeignFunctionInterface #-}
-{-# LANGUAGE Trustworthy #-}
 module Language.Lean.Module
   ( envImport
   , envExport
-  , stdPath
   ) where
 
-import Foreign
-import Foreign.C
-
 {#import Language.Lean.Internal.Exception#}
-import Language.Lean.Internal.Exception.Unsafe
 {#import Language.Lean.Internal.Name#}
 {#import Language.Lean.Internal.String#}
 import Language.Lean.IOS (getStateOptions)
@@ -69,10 +63,3 @@ envExport e path = runLeanAction (mkLeanExceptionWithEnv e) $
    , withLeanStringPtr* `String'
    , `OutExceptionPtr'
    } -> `Bool' #}
-
--- | Path to lean standard library (extracted from LEAN_PATH)
-stdPath :: String
-stdPath = getLeanValue $ lean_get_std_path
-
-{#fun unsafe lean_get_std_path
- { id `Ptr CString', `OutExceptionPtr' } -> `Bool' #}
