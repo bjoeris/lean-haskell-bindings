@@ -2,6 +2,4 @@ flags: {}
 packages:
 - '.'
 extra-deps: []
-resolver: lts-7.3
-extra-include-dirs:
-- /usr/local/include/
+resolver: lts-8.15
